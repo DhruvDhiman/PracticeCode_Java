@@ -90,8 +90,34 @@ public class CircularArray {
 		return numberOfRotation;
 	}
 	
+	public static int getNumberOfArrayOptimized(int[] a) {
+		int noOfRotations = 0;
+		if( a.length != 0) {
+			int mid;
+			int start = 0;
+			int end = a.length - 1;
+			while(start <= end) {
+				mid = (start + end)/2;
+				if(a[mid - 1] > a[mid]) {
+					noOfRotations = mid;
+					break;
+				}
+				else if(a[mid] > a[mid + 1]) {
+					noOfRotations = mid;
+					break;
+				}
+				
+				else if(a[start] < a[mid]) {
+					start = mid + 1;
+				}
+				else
+					end = mid - 1;
+			}
+		}
+		return noOfRotations;
+	}
 	public static void main(String[] args) {
-		int[] circularSortedArray = new int[] {1,2,3,4,5,6,7,8,0};
+		int[] circularSortedArray = new int[] {6,7,8,9,10, 0};
 		int elementToFind = 0;
 		int index = findIndex(circularSortedArray, elementToFind);
 		if(index != -1)
@@ -99,6 +125,6 @@ public class CircularArray {
 		else
 			System.out.println("Element not present in circular sorted array.");
 		
-		System.out.println("Number of rotations:"+ getNumberOfRotation(circularSortedArray));
+		System.out.println("Number of rotations:"+ getNumberOfArrayOptimized(circularSortedArray));
 	}
 }
